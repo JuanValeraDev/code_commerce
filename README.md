@@ -1,6 +1,6 @@
 # Code Commerce
 
-This is an e-commerce application for tech products built with Vite, React, Tailwind CSS, and Supabase. Created for
+This is an e-commerce application for fashion clothes built with Vite, React, Tailwind CSS, and Supabase. Created for
 practice.
 
 ## Features

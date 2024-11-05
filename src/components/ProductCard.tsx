@@ -21,7 +21,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
         <p className="text-gray-600 dark:text-gray-400 mb-4">{product.description}</p>
         <div className="flex items-center justify-between">
           <span className="text-2xl font-bold text-gray-900 dark:text-white">
-            ${product.price.toFixed(2)}
+            {product.price.toFixed(2)}€
           </span>
           <button
             onClick={() => onAddToCart(product)}
