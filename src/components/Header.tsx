@@ -4,15 +4,23 @@ import {Cart} from "./Cart.tsx";
 import {useCartItems} from "../hooks/useCartItems.ts";
 import {useNavigate} from 'react-router-dom';
 
+
 const Header = () => {
+
     const {cartItems, isCartOpen, setIsCartOpen, totalItems, updateQuantity, removeItem} = useCartItems()
     const navigate = useNavigate();
+
     return <>
-        <header className="bg-white dark:bg-zinc-800 shadow-sm transition-colors">
+        <header className="bg-white dark:bg-zinc-800 shadow-sm transition-colors fixed top-0 left-0 w-full z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                 <div className="flex items-center justify-between">
                     <h1 className="text-2xl font-bold text-gray-900 dark:text-white cursor-pointer"
-                        onClick={() => navigate("/")} >FashionTrends</h1>
+                        onClick={() => navigate("/")}>
+                        <img
+                            src="/src/assets/logo-dark-smallY.png"                   alt={"logo"}
+                            className="max-w-36" style={{objectFit: "contain"}}
+                        />
+                    </h1>
                     <div className="flex items-center gap-4">
                         <ThemeToggle/>
                         <button

@@ -1,43 +1,50 @@
-import {Image, ShoppingBag, TrendingUp} from "lucide-react";
+import { ShoppingBag} from "lucide-react";
 import {categories, products} from "../data/products";
 import Button from '@mui/material/Button';
 import {ProductCard} from "../components/ProductCard.tsx";
 import {useCartItems} from "../hooks/useCartItems.ts";
 import {useEffect, useState} from "react";
+import {useNavigate} from 'react-router-dom';
 
 
 function HomePage() {
 
     const {addToCart} = useCartItems()
-    const [randomProducts, setRandomProducts] = useState(products);
+    const [randomProducts, setRandomProducts] = useState(products)
+    const navigate= useNavigate()
 
     useEffect(() => {
         const shuffledProducts = [...products].sort(() => 0.5 - Math.random());
         setRandomProducts(shuffledProducts.slice(0, 6));
     }, []);
 
-    return (<div className="min-h-screen bg-gray-50 dark:bg-zinc-900">
-            {/* Hero Section */}
-            <div className="relative h-[70vh] overflow-hidden mb-1">
-                <img
-                    src="/src/assets/home_picture3.jpg"
-                    alt="Hero"
-                    className="w-full h-full object-cover brightness-70"
-                />
-                <div
-                    className="absolute inset-0 flex flex-col items-center justify-center text-zinc-100 bg-black bg-opacity-30">
-                    <div className="flex gap-2 text-4xl md:text-7xl font-medium mb-8 text-zinc-100
-                    border-4 md:border-8 p-4 bg-zinc-900  bg-opacity-90 ">
-                        FashionTrends
-                    </div>
-                    <div className="block w-full">
+    const handleCategoryClick = (category: string) => {
+        navigate(`/products?category=${category}`);
+    };
 
-                    <p className="text-xl md:text-2xl mb-8 text-center px-4 py-1 bg-zinc-900 bg-opacity-60">
-                        Your place for discovering what's good
-                    </p>
+    return (<div className="min-h-screen bg-gray-50 dark:bg-zinc-900 mt-16">
+            {/* Hero Section */}
+            <div className="relative h-[70vh] overflow-hidden mb-10">
+                <img
+                    src="/src/assets/home_picture2.jpg"
+                    alt="Hero"
+                    className="w-full h-full object-cover brightness-75 "
+                />
+                <div className="absolute inset-0 flex flex-row items-start justify-around text-zinc-100 bg-black bg-opacity-30">
+                    <div className="flex flex-col  items-center self-center ">
+
+                    <div className="flex flex-col gap-2 text-5xl  md:text-6xl  text-center font-bold mb-8 text-zinc-100
+                     ">
+                        <img src="/src/assets/logo-dark.webp" alt="Logo" className="max-w-44 rounded-lg"/>
                     </div>
+                        <p className="text-xs text-center px-2 py-2  font-normal">
+                            Your place for discovering what's good
+                        </p>
+                    </div>
+
                     <button
-                        className="flex items-center gap-2 bg-zinc-600 text-white px-4 py-2 rounded-lg hover:bg-zinc-700 transition-colors"
+                        className="flex items-center self-center gap-2 bg-zinc-800 text-white px-4 py-2 rounded-lg hover:bg-zinc-900 transition-colors"
+                    onClick={()=>navigate("/products")}
                     >
                         Shop Now
                         <ShoppingBag className="ml-2 h-5 w-5"/>
@@ -47,22 +54,22 @@ function HomePage() {
 
 
             {/* Categories Section */}
-            <section className="max-w-7xl mx-auto py-16 px-4 relative">
-                <h2 className="text-3xl font-bold text-center mb-12 dark:text-white z-1">Browse Categories</h2>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 z-1">
+            <section className="max-w-7xl mx-6 py-16 px-4 rounded-2xl mb-10"
+                     style={{backgroundImage: "url('/src/assets/home_waves.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
+
+                <h2 className="text-3xl font-bold text-center mb-12 text-zinc-100">Categories</h2>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                     {categories.map((category) => (
                         <button
-                            className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors z-1"
+                            key={category}
+                            className="flex items-center gap-2 bg-zinc-800 text-zinc-100 px-2 py-10 rounded-lg hover:bg-zinc-900 transition-colors justify-center border-2 border-zinc-500"
+                            onClick={()=>handleCategoryClick(category)}
                         >
                             {category}
                         </button>
                     ))}
                 </div>
-                <img
-                    src="/src/assets/home_waves.jpg"
-                    alt="Background"
-                    className="absolute inset-0 w-full h-full object-cover opacity-50 z-0"
-                />
+
             </section>
 
 
@@ -79,7 +86,7 @@ function HomePage() {
             </section>
 
             {/* Newsletter Section */}
-            <section className="max-w-7xl mx-auto py-16 px-4">
+            <section className="max-w-7xl mx-auto py-16 px-4"   style={{backgroundImage: "url('/src/assets/home_waves.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
                 <div className="bg-white dark:bg-zinc-800 rounded-2xl p-8 md:p-12 text-center">
                     <h2 className="text-3xl font-bold mb-4 dark:text-white">Stay in Trend</h2>
                     <p className="text-gray-600 dark:text-gray-300 mb-8">

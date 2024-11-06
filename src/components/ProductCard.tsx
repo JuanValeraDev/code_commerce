@@ -25,7 +25,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
           </span>
           <button
             onClick={() => onAddToCart(product)}
-            className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
+            className="flex items-center gap-2 bg-zinc-200 dark:bg-zinc-600 dark:text-zinc-100 px-4 py-2 rounded-lg dark:hover:bg-zinc-700 hover:bg-zinc-300 transition-colors"
           >
             <ShoppingCart size={20} />
             Add to Cart
