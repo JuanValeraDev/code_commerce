@@ -1,75 +1,78 @@
-import {ShoppingBag, TrendingUp} from "lucide-react";
-import { categories, products } from "../data/products";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
+import {Image, ShoppingBag, TrendingUp} from "lucide-react";
+import {categories, products} from "../data/products";
 import Button from '@mui/material/Button';
+import {ProductCard} from "../components/ProductCard.tsx";
+import {useCartItems} from "../hooks/useCartItems.ts";
+import {useEffect, useState} from "react";
 
 
 function HomePage() {
-    return (
-        <div className="min-h-screen bg-gray-50 dark:bg-zinc-900">
+
+    const {addToCart} = useCartItems()
+    const [randomProducts, setRandomProducts] = useState(products);
+
+    useEffect(() => {
+        const shuffledProducts = [...products].sort(() => 0.5 - Math.random());
+        setRandomProducts(shuffledProducts.slice(0, 6));
+    }, []);
+
+    return (<div className="min-h-screen bg-gray-50 dark:bg-zinc-900">
             {/* Hero Section */}
-            <header className="relative h-[70vh] overflow-hidden">
+            <div className="relative h-[70vh] overflow-hidden mb-1">
                 <img
-                    src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=1600&q=80"
+                    src="/src/assets/home_picture3.jpg"
                     alt="Hero"
-                    className="w-full h-full object-cover brightness-75"
+                    className="w-full h-full object-cover brightness-70"
                 />
                 <div
-                    className="absolute inset-0 flex flex-col items-center justify-center text-white bg-black bg-opacity-30">
-                    <div className="flex items-center gap-2 text-4xl md:text-6xl font-bold mb-4">
-                        <TrendingUp className="w-12 h-12"/>
-                        FashionTrend
+                    className="absolute inset-0 flex flex-col items-center justify-center text-zinc-100 bg-black bg-opacity-30">
+                    <div className="flex gap-2 text-4xl md:text-7xl font-medium mb-8 text-zinc-100
+                    border-4 md:border-8 p-4 bg-zinc-900  bg-opacity-90 ">
+                        FashionTrends
                     </div>
-                    <p className="text-xl md:text-2xl mb-8 text-center max-w-2xl px-4">
-                        Discover the latest trends in fashion and express your unique style
-                    </p>
-                    <button
-                        className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
-                    >
-                    Shop Now
-                    <ShoppingBag className="ml-2 h-5 w-5"/>
-                    </button>
-        </div>
-</header>
+                    <div className="block w-full">
 
-    {/* Categories Section */}
-    <section className="max-w-7xl mx-auto py-16 px-4">
-        <h2 className="text-3xl font-bold text-center mb-12 dark:text-white">Browse Categories</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                    <p className="text-xl md:text-2xl mb-8 text-center px-4 py-1 bg-zinc-900 bg-opacity-60">
+                        Your place for discovering what's good
+                    </p>
+                    </div>
+                    <button
+                        className="flex items-center gap-2 bg-zinc-600 text-white px-4 py-2 rounded-lg hover:bg-zinc-700 transition-colors"
+                    >
+                        Shop Now
+                        <ShoppingBag className="ml-2 h-5 w-5"/>
+                    </button>
+                </div>
+            </div>
+
+
+            {/* Categories Section */}
+            <section className="max-w-7xl mx-auto py-16 px-4 relative">
+                <h2 className="text-3xl font-bold text-center mb-12 dark:text-white z-1">Browse Categories</h2>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 z-1">
                     {categories.map((category) => (
                         <button
-                            className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
+                            className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors z-1"
                         >
                             {category}
                         </button>
                     ))}
-        </div>
-    </section>
+                </div>
+                <img
+                    src="/src/assets/home_waves.jpg"
+                    alt="Background"
+                    className="absolute inset-0 w-full h-full object-cover opacity-50 z-0"
+                />
+            </section>
+
 
             {/* Featured Products */}
             <section className="bg-white dark:bg-zinc-800 py-16">
                 <div className="max-w-7xl mx-auto px-4">
                     <h2 className="text-3xl font-bold text-center mb-12 dark:text-white">Featured Collection</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {products.map((product) => (
-                            <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                                  <CardMedia>
-                                    <img
-                                    src={product.image}
-                                    alt={product.name}
-                                    className="w-full h-80 object-cover hover:scale-105 transition-transform duration-300"
-                                />
-                                  </CardMedia>
-                                <CardContent>
-                                <div className="p-4">
-                                    <h3 className="text-lg font-semibold dark:text-white">{product.name}</h3>
-                                    <p className="text-gray-600 dark:text-gray-300 mt-1">{product.price}</p>
-                                    <Button className="w-full mt-4">Add to Cart</Button>
-                                </div>
-                                </CardContent>
-                            </Card>
+                        {randomProducts.map((product) => (
+                            <ProductCard product={product} onAddToCart={() => addToCart(product)}/>
                         ))}
                     </div>
                 </div>
